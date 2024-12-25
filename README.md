@@ -44,11 +44,6 @@ $emailBody = "Please find attached the summary of the log truncation process."
 Read-Host -AsSecureString | ConvertFrom-SecureString | Out-File "C:\yourpath\smtp_password.txt"
 ```
 
-### Create Encrypted SMTP Password File:
-```
-Read-Host -AsSecureString | ConvertFrom-SecureString | Out-File "C:\yourpath\smtp_password.txt"
-```
-
 ### Tables to Truncate
 Specify the list of tables to truncate.
 ```
