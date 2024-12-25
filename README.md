@@ -1,8 +1,6 @@
 # DNN-DynamicTruncateEventLogs
 Automates truncation of log tables in non-system databases within SQL Server Always On Availability Groups. Supports dry runs, dynamic foreign key handling, detailed HTML logs, and email notifications. Ideal for DNN or similar environments.
 
-# DynamicTruncateEventLogs.ps1
-
 ## Overview
 
 `DynamicTruncateEventLogs.ps1` is a PowerShell script designed to truncate event logs across all non-system databases on primary replicas within SQL Server Always On Availability Groups. It supports both dry runs and actual truncations, provides comprehensive logging, and sends summary emails upon completion.
@@ -29,8 +27,8 @@ Automates truncation of log tables in non-system databases within SQL Server Alw
 Before running the script, update the following configuration parameters within the script:
 
 ### SMTP Configuration
-
-```powershell
+Set up the SMTP settings to enable email notifications.
+```
 $smtpServer = "your.mail.server"                        # Your SMTP server
 $smtpPort = 587                                         # SMTP port (e.g., 25, 587, 465)
 $smtpUser = "username@email.com"                        # SMTP username
@@ -39,45 +37,42 @@ $senderEmail = "your@email.com"                         # Sender email address
 $recipientEmail = "recipient@email.com"                 # Recipient email address
 $emailSubject = "Log Truncation Summary - $(Get-Date -Format 'yyyy-MM-dd')"
 $emailBody = "Please find attached the summary of the log truncation process."
+```
 
-Create Encrypted SMTP Password File:
-
+### Create Encrypted SMTP Password File:
+```
 Read-Host -AsSecureString | ConvertFrom-SecureString | Out-File "C:\yourpath\smtp_password.txt"
+```
 
-Tables to Truncate
+### Create Encrypted SMTP Password File:
+```
+Read-Host -AsSecureString | ConvertFrom-SecureString | Out-File "C:\yourpath\smtp_password.txt"
+```
 
+### Tables to Truncate
+Specify the list of tables to truncate.
+```
 $tablesToTruncate = @('EventLog', 'Exceptions', 'ExceptionEvents', 'ScheduleHistory')
+```
 
-Logging Configuration
-
+### Logging Configuration
+Set the path for log files.
+```
 $logPath = "C:\yourlogpath\"         # Directory for log files
+```
 
-Dry Run Configuration
-
+### Dry Run Configuration
+Set whether to perform a dry run or execute truncation.
+```
 $dryRun = $false                      # Set to $true for dry run, $false for actual truncation
+```
 
-SQL Server Instances
-
+### SQL Server Instances
+Specify the SQL Server instances to manage.
+```
 $sqlInstances = @(
     "INSTANCE1",  # Replace with your SQL Server instance names
     "INSTANCE2"
     # Add more instances as needed
 )
-
-Usage
-
-    Configure the Script: Update all configuration parameters as outlined above.
-
-    Prepare the SMTP Password File: Create an encrypted password file for SMTP credentials.
-
-Read-Host -AsSecureString | ConvertFrom-SecureString | Out-File "C:\yourpath\smtp_password.txt"
-
-Run the Script: Execute the script in PowerShell.
-
-.\DynamicTruncateEventLogs.ps1
-
-    Note: Ensure you run PowerShell with sufficient permissions to access and modify SQL Server databases.
-
-Monitor Execution: The script will display logs in the console and generate an HTML log file at the specified $logPath.
-
-Review Email Summary: Upon completion, a summary email with the log file attached will be sent to the designated recipient.ity policies.
+```
